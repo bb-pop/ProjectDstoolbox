@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://cdn.discordapp.com/attachments/867326127617605632/1208698712772313128/44815436_2022288174476923_122224710430752768_n.jpg?ex=65e43b65&is=65d1c665&hm=da52d2b3ccf1398db45a900ce12efc809f4bd8e8e3a9d83f79c268b78d756326&');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+
+        p {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .g_id_signin {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% if request.session.user_data %}
+    <div>
+        <h1>สวัสดี {{ request.session.user_data.given_name }}</h1>
+        <h2>นี่คืออีเมลของคุณ {{ request.session.user_data.email }}</h2>
+        <img src="{{ request.session.user_data.picture }}" alt="User picture">
+        <p>กดปุ่มนี้เพื่อ <a href="/sign-out">ออกจากระบบ</a></p>
+    </div>
+    {% else %}
+    <div>
+        <p>เข้าสู่ระบบเพื่อเปิดประตูห้อง</p>
+        <p>ต้องเข้าสู่ระบบด้วยอีเมลมหาวิทยาลัย</p>
+        <!--            Paste the generated HTML code for Google sign in button goes here-->
+        <div id="g_id_onload"
+            data-client_id="163224471536-qer876veufbe05pla33tmpbrr5t29hvb.apps.googleusercontent.com"
+            data-context="use"
+            data-ux_mode="redirect"
+            data-login_uri="http://localhost:8000/auth-receiver"
+            data-itp_support="true">
+        </div>
+
+        <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="center">
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
+
+
+<!-- <h1>Welcome, {{ user.username }}</h1> -->

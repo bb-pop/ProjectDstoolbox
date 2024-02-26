@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกห้องเพื่อปลดล็อก</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: url('https://cdn.discordapp.com/attachments/867326127617605632/1208698712772313128/44815436_2022288174476923_122224710430752768_n.jpg?ex=65e43b65&is=65d1c665&hm=da52d2b3ccf1398db45a900ce12efc809f4bd8e8e3a9d83f79c268b78d756326&');
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 0 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .room {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .room p {
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .room button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .room button:hover {
+            background-color: #003d82;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 18px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 50px 50px rgba(0,0,0,0.1);
+        }
+
+        .navbar-yellow {
+            background-color: yellow;
+            overflow: hidden;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            color: #000000;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navbar-nav {
+            display: flex;
+        }
+
+        .nav-item {
+            color: #f4f4f4;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item:hover {
+            background-color: #555;
+        }
+    </style>
+    <script>
+        function showCurrentTime() {
+            var today = new Date();
+            var time = "เวลา " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + " น.";
+            document.getElementById('currentTime').innerHTML = time;
+        }
+        setInterval(showCurrentTime, 1000);
+    </script>
+</head>
+
+<body>
+    <nav class="navbar-yellow">
+        <a href="#" class="navbar-brand"></a>
+        <div class="navbar-nav">
+    </nav>
+    <nav class="navbar">
+
+        <a href="#" class="navbar-brand">
+            {% if request.user.is_staff %}
+                <a href="{% url 'add_user' %}">Add User</a>
+            {% endif %}
+        </a>
+        <div class="navbar-nav">
+            <p id="currentTime"></p>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <h2>ปลดล็อกประตูห้องสาขา</h2>
+        <div class="room">
+            <p>ห้อง SC250 ห้องประชุมใหญ่</p>
+            <a href="{% url 'unlock_door_SC250' %}" class="room button">Open</a>
+        </div>
+        <div class="room">
+            <p>ห้อง SC251 ห้องกิจกรรมอาคาร</p>
+            <a href="{% url 'unlock_door_SC251' %}" class="room button">Open</a>
+        </div>
+        <div class="room">
+            <p>ห้อง SC252 ห้องสัมมนาใหญ่</p>
+            <a href="{% url 'unlock_door_SC252' %}" class="room button">Open</a>
+        </div>
+    </div>
+    <script>
+        // Check if there are any messages
+        window.onload = function () {     
+        {% if messages %}
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        {% endif %}
+        }
+    </script>
+</body>
+
+</html>
