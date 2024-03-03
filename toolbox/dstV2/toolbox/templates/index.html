@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Sarabun', sans-serif;
-            background: url('https://cdn.discordapp.com/attachments/867326127617605632/1208698712772313128/44815436_2022288174476923_122224710430752768_n.jpg?ex=65e43b65&is=65d1c665&hm=da52d2b3ccf1398db45a900ce12efc809f4bd8e8e3a9d83f79c268b78d756326&');
+            background-color: #3498db;
             background-size: cover;
             margin: 0;
             display: flex;
@@ -63,19 +63,21 @@
             background-color: #ffffff;
             overflow: hidden;
             display: flex;
-            justify-content: start;
+            justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+            /* padding-right: 10px; */
+            margin-right: 20px;
             position: fixed;
             top: 18px;
             left: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 50px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-yellow {
-            background-color: yellow;
+            background-color: #20409A;
             overflow: hidden;
             display: flex;
             justify-content: start;
@@ -98,6 +100,7 @@
 
         .navbar-nav {
             display: flex;
+            justify-content: flex-end;
         }
 
         .nav-item {
@@ -109,6 +112,89 @@
 
         .nav-item:hover {
             background-color: #555;
+        }
+
+        .nav-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            margin-right: 40px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-left: 40px;
+        }
+
+
+        .logout-button {
+            cursor: pointer;
+            background-color: #b81f1f;
+            /* Black background */
+            color: #fff;
+            /* White text */
+            padding: 8px 18px;
+            text-decoration: none;
+            /* Remove underline from link */
+            border-radius: 5px;
+            /* Rounded corners */
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 8px;
+            transition: background-color 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .nav-time {
+            margin-bottom: 0;
+            /* Removes any margin below the time to stack the logout link directly below */
+        }
+
+        .logout-button:hover {
+            background: rgba(255, 78, 78, 0.767);
+
+        }
+
+        .button {
+            cursor: pointer;
+            background-color: #20409A;
+            /* Black background */
+            color: #fff;
+            /* White text */
+            padding: 10px 20px;
+            text-decoration: none;
+            /* Remove underline from link */
+            border-radius: 5px;
+            /* Rounded corners */
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 13px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background: rgba(19, 33, 165, 0.767);
+        }
+
+        .button-open {
+            cursor: pointer;
+            background-color: #20409A;
+            /* Black background */
+            color: #fff;
+            /* White text */
+            padding: 10px 20px;
+            text-decoration: none;
+            /* Remove underline from link */
+            border-radius: 5px;
+            /* Rounded corners */
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 13px;
+            transition: background-color 0.3s;
+        }
+
+        .button-open:hover {
+            background: rgba(19, 33, 165, 0.767);
         }
     </style>
     <script>
@@ -128,13 +214,17 @@
     </nav>
     <nav class="navbar">
 
-        <a href="#" class="navbar-brand">
-            {% if request.user.is_staff %}
-                <a href="{% url 'add_user' %}">Add User</a>
+        <div class="nav-left">
+            {% if request.user.is_staff or request.user.is_superuser %}
+
+            <a href="{% url 'importuser' %}" class="button">Add User</a>
             {% endif %}
-        </a>
-        <div class="navbar-nav">
-            <p id="currentTime"></p>
+        </div>
+
+        <div class="nav-right">
+            <p id="currentTime" class="nav-time">Current Time</p> <!-- This will show the time -->
+
+            <a href="{% url 'logout' %}" class="logout-button">Logout</a> <!-- This will be the logout link -->
         </div>
     </nav>
 
@@ -143,27 +233,22 @@
         <h2>ปลดล็อกประตูห้องสาขา</h2>
         <div class="room">
             <p>ห้อง SC250 ห้องประชุมใหญ่</p>
-            <a href="{% url 'unlock_door_SC250' %}" class="room button">Open</a>
+
+            <a href="{% url 'unlock_door_SC250' %}" class="button-open">Open SC250</a>
         </div>
         <div class="room">
             <p>ห้อง SC251 ห้องกิจกรรมอาคาร</p>
-            <a href="{% url 'unlock_door_SC251' %}" class="room button">Open</a>
+
+            <a href="{% url 'unlock_door_SC251' %}"class="button-open">Open SC251</a>
         </div>
         <div class="room">
             <p>ห้อง SC252 ห้องสัมมนาใหญ่</p>
-            <a href="{% url 'unlock_door_SC252' %}" class="room button">Open</a>
+
+            <a href="{% url 'unlock_door_SC252' %}"class="button-open">Open SC252</a>
         </div>
+
     </div>
-    <script>
-        // Check if there are any messages
-        window.onload = function () {     
-        {% if messages %}
-            {% for message in messages %}
-                alert('{{ message }}');
-            {% endfor %}
-        {% endif %}
-        }
-    </script>
+
 </body>
 
 </html>

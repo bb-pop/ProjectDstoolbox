@@ -1,0 +1,169 @@
+<span style="font-family: verdana, geneva, sans-serif;">
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Signup</title>
+        <link rel="stylesheet" href="style.css">
+        <!-- Font Awesome Cdn Link -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Poppins", sans-serif;
+            }
+
+            body {
+                background: linear-gradient(to right, #ffffff, #f9d5ff);
+            }
+
+            .wrapper {
+                width: 330px;
+                padding: 2rem 0 1rem 0;
+                margin: 150px auto;
+                background: #ffffff;
+                border-radius: 10px;
+                text-align: center;
+                box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                font-size: 2rem;
+                color: #b12bda;
+            }
+
+            p {
+                margin-bottom: 1.7rem;
+            }
+
+            form input {
+                width: 85%;
+                outline: none;
+                border: none;
+                background: #dfe9f5;
+                padding: 12px 14px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+            }
+
+            .recover {
+                text-align: right;
+                font-size: 0.8rem;
+                margin: 0.2rem 1.7rem 0 0;
+            }
+
+            .recover a {
+                text-decoration: none;
+                color: #07001f;
+            }
+
+            button {
+                cursor: pointer;
+                border-radius: 5em;
+                color: #fff;
+                background: linear-gradient(to right, #9C27B0, #E040FB);
+                border: 0;
+                font-size: 1.1rem;
+                margin-top: 1rem;
+                padding: 8px 0;
+                font-family: 'Ubuntu', sans-serif;
+                width: 85%;
+                font-size: 13px;
+                box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+            }
+
+
+            button:hover {
+                background: rgba(60, 78, 235, 0.767);
+            }
+
+            .or {
+                font-size: 0.8rem;
+                margin-top: 1.5rem;
+            }
+
+            .icons i {
+                color: #07001f;
+                padding: 00.8rem 1.5rem;
+                border-radius: 10px;
+                margin-left: .9rem;
+                font-size: 1.5rem;
+                cursor: pointer;
+                border: 2px solid #dfe9f5;
+            }
+
+            .icons i:hover {
+                color: #fff !important;
+                background: #07001f;
+                transition: 1s;
+            }
+
+            .icons i:first-child {
+                color: green;
+            }
+
+            .icons i:last-child {
+                color: blue;
+            }
+
+            .not-member {
+                font-size: 0.8rem;
+                margin-top: 1.4rem;
+            }
+
+            .not-member a {
+                color: rgb(112, 6, 183);
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .level {
+                width: 85%; 
+                outline: none; 
+                border: none; 
+                color: #07001f78;
+                background: #dfe9f5;
+                padding: 12px 14px; 
+                margin-bottom: 10px; 
+                border-radius: 10px;
+
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <h1>Sign up</h1>
+            <br><br>
+            
+            <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+                <input type="text" placeholder="Student ID (Username)" id="id_student_id" name="student_id" maxlength="11" required><br><br>     
+                        
+                <select class="level" id="level" name="level" required >
+                    <option value="1">ชั้นปีที่ 1</option>
+                    <option value="2">ชั้นปีที่ 2</option>
+                    <option value="3">ชั้นปีที่ 3</option>
+                    <option value="4">ชั้นปีที่ 4</option>
+                </select><br><br>
+
+                <input type="password" placeholder="Password" id="password" name="password" required> <br><br>
+                <input type="password" placeholder="Confirm Password" id="password2" name="password2" required>
+                <button type="submit">Register</button>  
+            </form>
+               
+            <div class="not-member">
+                Already have an account? <a href="{% url 'login' %}">Signin Here</a>
+            </div>
+            
+        </div>
+    </body>
+
+    </html>
+</span>
