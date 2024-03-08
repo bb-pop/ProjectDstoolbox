@@ -24,8 +24,8 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('index')
+    # if request.user.is_authenticated:
+    #     return redirect('index')
 
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -41,10 +41,13 @@ def login(request):
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
+    elif request.user.is_authenticated:
+        return redirect('index')
     else:
         form = AuthenticationForm()
     return render(request, "registration/login.html", {"login_form": form})
 
+@login_required
 def logout(request):
     auth_logout(request)
     messages.info(request, "You have successfully logged out.") 
@@ -78,6 +81,7 @@ def unlock_door_SC250(request):
     else:
         return HttpResponse('Access denied.', status=403)
 
+@login_required
 def index(request):
     return render(request, 'index.html')
 
